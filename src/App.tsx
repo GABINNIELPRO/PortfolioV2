@@ -153,7 +153,7 @@ export default function App() {
       </footer>
 
       {/* Chat RAG flottant (bas à droite) */}
-      <Chat avatar="/shell-face.svg" />
+      <Chat />
     </div>
   )
 }
