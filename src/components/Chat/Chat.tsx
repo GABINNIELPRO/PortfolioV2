@@ -59,7 +59,7 @@ export default function Chat() {
         <div className="mc__box" onKeyDown={(e) => e.key === "Escape" && setOpen(false)}>
           <div className="mc__list" ref={listRef}>
             {msgs.length === 0 && (
-              <p className="mc__hint">Hi 👋 Ask me anything about my projects or experience.</p>
+              <p className="mc__hint">Bonjour,Posez moi des questions sur moi et mes expériences.</p>
             )}
             {msgs.map((m, i) => (
               <p key={i} className={`mc__msg mc__msg--${m.role}`}>{m.text}</p>
