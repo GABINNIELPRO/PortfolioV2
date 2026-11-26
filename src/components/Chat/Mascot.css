@@ -1,0 +1,90 @@
+/* ===== Mascotte animée ===== */
+.mascot {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.mascot svg {
+  display: block;
+  overflow: visible;
+}
+
+/* Par défaut : yeux ouverts, bouche fermée (le prompt >_) */
+.mascot__eyes-closed,
+.mascot__mouth-open {
+  visibility: hidden;
+}
+
+/* ----- Clignement des yeux, en permanence ----- */
+.mascot__eyes-open   { animation: mascot-blink-open 4s steps(1) infinite; }
+.mascot__eyes-closed { animation: mascot-blink-closed 4s steps(1) infinite; }
+
+@keyframes mascot-blink-open {
+  0%, 94%, 100% { visibility: visible; }
+  95%, 98%      { visibility: hidden; }
+}
+@keyframes mascot-blink-closed {
+  0%, 94%, 100% { visibility: hidden; }
+  95%, 98%      { visibility: visible; }
+}
+
+/* ----- Quand il parle : la bouche s'ouvre et se ferme ----- */
+.mascot--talking .mascot__mouth-closed { animation: mascot-mouth-a 0.32s steps(1) infinite; }
+.mascot--talking .mascot__mouth-open   { animation: mascot-mouth-b 0.32s steps(1) infinite; }
+.mascot--talking svg                   { animation: mascot-bob 0.32s steps(1) infinite; }
+
+@keyframes mascot-mouth-a { 0% { visibility: hidden; }  50% { visibility: visible; } }
+@keyframes mascot-mouth-b { 0% { visibility: visible; } 50% { visibility: hidden; } }
+@keyframes mascot-bob     { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+
+/* ----- Bulle de dialogue avec les petits points ----- */
+.mascot__bubble {
+  position: absolute;
+  top: 8px;
+  left: -46px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background: #ffffff;
+  border: 2px solid #1b1424;
+  box-shadow: 2px 2px 0 #1b1424;         /* ombre façon pixel art */
+  animation: mascot-pop 0.15s steps(2);
+}
+
+/* petite queue de la bulle, en pixels */
+.mascot__bubble::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  bottom: 2px;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-right: 2px solid #1b1424;
+  border-bottom: 2px solid #1b1424;
+}
+
+.mascot__bubble i {
+  width: 4px;
+  height: 4px;
+  background: #1b1424;
+  animation: mascot-dot 0.9s steps(1) infinite;
+}
+.mascot__bubble i:nth-child(2) { animation-delay: 0.15s; }
+.mascot__bubble i:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes mascot-dot {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  30%      { transform: translateY(-3px); opacity: 1; }
+}
+@keyframes mascot-pop {
+  from { transform: scale(0.6); }
+  to   { transform: scale(1); }
+}
+
+/* Accessibilité : pas d'animation si l'utilisateur l'a désactivée */
+@media (prefers-reduced-motion: reduce) {
+  .mascot *, .mascot svg, .mascot__bubble i { animation: none !important; }
+}
