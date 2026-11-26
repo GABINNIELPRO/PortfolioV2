@@ -1,5 +1,5 @@
-const RAG_BASE = import.meta.env.VITE_RAG_BASE as string | undefined
-
+/*const RAG_BASE = import.meta.env.VITE_RAG_BASE as string | undefined*/
+const RAG_BASE = "http://localhost:8007"
 export async function askToRAG(query: string) {
   if (!RAG_BASE) {
     throw new Error("VITE_RAG_BASE (URL du backend) est manquant !")
